@@ -1,0 +1,37 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout pageTitle={frontmatter.title}>
+    <style>
+        h1, h2, h3, h4, h5, h6, p, span {
+            font-family: sans-serif;
+        }
+
+        .post-meta-data {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid gainsboro;
+
+            .post-meta-data-row {
+                display: grid;
+                grid-template-columns: 15ch 1fr;
+            }
+        }
+    </style>
+    <section class="post-meta-data">
+        <div class="post-meta-data-row">
+            <span>Date:</span>
+            <span>{frontmatter.pubDate.toString().slice(0,10)}</span>
+        </div>
+        <div class="post-meta-data-row">
+            <span>Witten by:</span>
+            <span>{frontmatter.author}</span>
+        </div>
+    </section>
+    <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+    <slot />
+</BaseLayout>

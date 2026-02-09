@@ -1,0 +1,40 @@
+---
+import Social from './Social.astro';
+
+const platforms = [
+  {
+    id: 'github',
+    name: 'GitHub',
+    url: 'https://www.github.com/raphael-hemme/',
+    icon: ''
+  },
+  {
+    id: 'mastodon',
+    name: 'Mastodon',
+    url: 'https://mastodon.social/@raphael_hemme',
+    icon: ''
+  },
+  {
+    id: 'bluesky',
+    name: 'Bluesky',
+    url: 'https://bsky.app/profile/raphael-hemme.bsky.social',
+    icon: ''
+  },
+  {
+    id: 'linkedin',
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/raphael-hemme/',
+    icon: ''
+  }
+]
+---
+<style>
+    .site-footer {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0 0 0;
+    }
+</style>
+<footer class='site-footer'>
+    {platforms.map(platform => <Social platform={platform} />)}
+</footer>
