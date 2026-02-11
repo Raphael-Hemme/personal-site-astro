@@ -5,6 +5,44 @@ import '../styles/global.css';
 
 const { pageTitle } = Astro.props;
 ---
+<style>
+    .base-layout-container {
+		height: 100dvh;
+		display: grid;
+	    grid-template-columns: 1fr minmax(0, 100ch) 1fr;
+		grid-template-rows: auto 1fr auto;
+		grid-template-areas:
+		    'base-layout-header base-layout-header base-layout-header'
+            'base-layout-main base-layout-main base-layout-main'
+			 'base-layout-footer base-layout-footer base-layout-footer';
+
+		@media screen and (min-width: 636px) {
+			grid-template-areas:
+			    '. base-layout-header .'
+                '. base-layout-main .'
+				'. base-layout-footer .';
+		}
+	}
+
+	.base-layout-header {
+	    grid-area: base-layout-header;
+		border: 1px solid lime;
+		position: sticky;
+		top: 0;
+		z-index: 10;
+	}
+
+	.base-layout-main {
+	    border: 1px solid cornflowerblue;
+	    grid-area: base-layout-main;
+		padding: 1rem;
+	}
+
+	.base-layout-footer {
+	    border: 1px solid deeppink;
+		grid-area: base-layout-footer;
+	}
+</style>
 
 <html lang="en">
 	<head>
@@ -16,57 +54,24 @@ const { pageTitle } = Astro.props;
 		<title>RH - {pageTitle}</title>
 	</head>
 
-	<style>
-	    body {
-			min-height: 100dvh;
-			display: grid;
-			grid-template-columns: 1fr;
-			grid-template-rows: auto
-								1fr
-								auto;
-			grid-template-areas: 'base-layout-header'
-			                     'base-layout-main'
-								 'base-layout-footer';
-
-			@media screen and (min-width: 636px) {
-			    grid-template-columns: 1fr 120ch 1fr;
-			}
-		}
-
-		.base-layout-header {
-		    grid-area: 'base-layout-header';
-			border: 1px solid lime;
-			position: sticky;
-			top: 0;
-			z-index: 10;
-		}
-
-		.base-layout-main {
-		    border: 1px solid cornflowerblue;
-		    grid-area: 'base-layout-main';
-		}
-
-		.base-layout-footer {
-		    border: 1px solid deeppink;
-			grid-area: 'base-layout-footer';
-		}
-	</style>
 
 	<body>
-	    <div class="base-layout-header">
-	        <Header />
-		</div>
+	    <div class="base-layout-container">
+    	    <div class="base-layout-header">
+    	        <Header />
+    		</div>
 
-		<main class="base-layout-main">
-		    <h1>{pageTitle}</h1>
-			<slot />
-		</main>
+    		<main class="base-layout-main">
+    		    <h1>{pageTitle}</h1>
+    			<slot />
+    		</main>
 
-		<div class='base-layout-footer'>
-		    <Footer />
+    		<div class='base-layout-footer'>
+    		    <Footer />
+    		</div>
+    		<script>
+    		  import "../scripts/menu";
+    		</script>
 		</div>
-		<script>
-		  import "../scripts/menu";
-		</script>
 	</body>
 </html>

@@ -1,27 +1,30 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Tag from '../components/Tag.astro';
+import TagList from '../components/TagList.astro';
 const { frontmatter } = Astro.props;
 ---
+<style>
+    h1, h2, h3, h4, h5, h6, p, span {
+        font-family: sans-serif;
+    }
+
+    .post-meta-data {
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid gainsboro;
+
+        .post-meta-data-row {
+            display: grid;
+            grid-template-columns: 15ch 1fr;
+        }
+    }
+</style>
+
 <BaseLayout pageTitle={frontmatter.title}>
-    <style>
-        h1, h2, h3, h4, h5, h6, p, span {
-            font-family: sans-serif;
-        }
-
-        .post-meta-data {
-            font-family: monospace;
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid gainsboro;
-
-            .post-meta-data-row {
-                display: grid;
-                grid-template-columns: 15ch 1fr;
-            }
-        }
-    </style>
     <section class="post-meta-data">
         <div class="post-meta-data-row">
             <span>Date:</span>
@@ -31,6 +34,7 @@ const { frontmatter } = Astro.props;
             <span>Witten by:</span>
             <span>{frontmatter.author}</span>
         </div>
+        <TagList tags={frontmatter.tags} />
     </section>
     <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
     <slot />

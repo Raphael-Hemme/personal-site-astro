@@ -1,6 +1,6 @@
-const menu = document.querySelector('.menu');
+const menuButton = document.querySelector('.menu-button');
 
-menu?.addEventListener('click', () => {
-  const isExpanded = menu.getAttribute('aria-expanded') === 'true';
-	menu.setAttribute('aria-expanded', `${!isExpanded}`);
+menuButton?.addEventListener('click', () => {
+  const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+	menuButton.setAttribute('aria-expanded', `${!isExpanded}`);
 });
