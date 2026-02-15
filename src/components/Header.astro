@@ -1,10 +1,21 @@
 ---
 import Navigation from './Navigation.astro';
 import MenuButton from './MenuButton.astro';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 <header>
     <nav>
-        <MenuButton />
+        <div>
+            <ThemeToggle />
+            <MenuButton />
+        </div>
         <Navigation />
     </nav>
 </header>
+
+<style>
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

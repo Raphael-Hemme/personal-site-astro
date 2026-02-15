@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Tag from '../components/Tag.astro';
 import TagList from '../components/TagList.astro';
 const { frontmatter } = Astro.props;
 ---
@@ -28,7 +27,8 @@ const { frontmatter } = Astro.props;
     <section class="post-meta-data">
         <div class="post-meta-data-row">
             <span>Date:</span>
-            <span>{frontmatter.pubDate.toString().slice(0,10)}</span>
+            <!-- <span>{frontmatter.pubDate.toString().slice(0,10)}</span> -->
+            <span>{frontmatter.pubDate.toLocaleDateString()}</span>
         </div>
         <div class="post-meta-data-row">
             <span>Witten by:</span>
