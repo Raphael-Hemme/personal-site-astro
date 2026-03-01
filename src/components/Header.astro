@@ -3,19 +3,34 @@ import Navigation from './Navigation.astro';
 import MenuButton from './MenuButton.astro';
 import ThemeToggle from './ThemeToggle.astro';
 ---
+
 <header>
-    <nav>
-        <div>
-            <ThemeToggle />
-            <MenuButton />
-        </div>
-        <Navigation />
-    </nav>
+  <nav>
+    <div class="nav-controls">
+      <ThemeToggle />
+      <MenuButton />
+    </div>
+    <Navigation />
+  </nav>
 </header>
 
 <style>
-  div {
+  header {
+    background-color: var(--color-bg-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
   }
 </style>

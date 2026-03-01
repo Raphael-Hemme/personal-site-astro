@@ -1,41 +1,59 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TagList from '../components/TagList.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    pubDate: Date;
+    author: string;
+    description: string;
+    image: {
+      url: string;
+      alt: string;
+    };
+    tags: string[];
+  };
+}
+
 const { frontmatter } = Astro.props;
 ---
-<style>
-    h1, h2, h3, h4, h5, h6, p, span {
-        font-family: sans-serif;
-    }
-
-    .post-meta-data {
-        font-family: monospace;
-        display: flex;
-        flex-direction: column;
-        gap: 0.1rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid gainsboro;
-
-        .post-meta-data-row {
-            display: grid;
-            grid-template-columns: 15ch 1fr;
-        }
-    }
-</style>
 
 <BaseLayout pageTitle={frontmatter.title}>
-    <section class="post-meta-data">
-        <div class="post-meta-data-row">
-            <span>Date:</span>
-            <!-- <span>{frontmatter.pubDate.toString().slice(0,10)}</span> -->
-            <span>{frontmatter.pubDate.toLocaleDateString()}</span>
-        </div>
-        <div class="post-meta-data-row">
-            <span>Witten by:</span>
-            <span>{frontmatter.author}</span>
-        </div>
-        <TagList tags={frontmatter.tags} />
-    </section>
-    <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-    <slot />
+  <section class="post-meta-data">
+    <div class="post-meta-data-row">
+      <span>Date:</span>
+      <span>{frontmatter.pubDate.toLocaleDateString()}</span>
+    </div>
+    <div class="post-meta-data-row">
+      <span>Written by:</span>
+      <span>{frontmatter.author}</span>
+    </div>
+    <TagList tags={frontmatter.tags} />
+  </section>
+  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+  <slot />
 </BaseLayout>
+
+<style>
+  .post-meta-data {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-meta-data .post-meta-data-row {
+    display: grid;
+    grid-template-columns: 15ch 1fr;
+  }
+
+  img {
+    margin-top: var(--space-md);
+    border-radius: var(--radius-md);
+  }
+</style>

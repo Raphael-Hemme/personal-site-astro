@@ -1,5 +1,30 @@
 ---
 ---
+
 <button aria-expanded="false" aria-controls="main-menu" class="menu-button">
-    Menu
+  Menu
 </button>
+
+<style>
+  .menu-button {
+    background-color: var(--color-button-bg);
+    border: none;
+    color: var(--color-button-text);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+  }
+
+  .menu-button:hover {
+    opacity: 0.85;
+  }
+
+  @media screen and (min-width: 640px) {
+    .menu-button {
+      display: none;
+    }
+  }
+</style>

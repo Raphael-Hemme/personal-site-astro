@@ -1,18 +1,30 @@
 ---
+interface Props {
+  tag: string;
+}
+
 const { tag } = Astro.props;
 ---
 
-<a href={`/tags/${tag}`} class="tag"><li>{tag}</li></a>
+<li class="tag"><a href={`/tags/${tag}`}>{tag}</a></li>
 
 <style>
-    .tag {
-        border: none;
-        padding: 0.25em 0.5em;
-        font-size: 1.15em;
-        background-color: #dde5e7;
-        list-style: none;
-        border-radius: 0.5em;
-        text-decoration: none;
-        color: #08c
-    }
+  .tag {
+    list-style: none;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+    background-color: var(--color-tag-bg);
+    border-radius: var(--radius-md);
+  }
+
+  .tag a {
+    text-decoration: none;
+    color: var(--color-tag-text);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tag a:hover,
+  .tag a:focus-visible {
+    color: var(--color-link-hover);
+  }
 </style>

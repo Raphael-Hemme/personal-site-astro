@@ -28,13 +28,17 @@ const platforms = [
   }
 ]
 ---
-<style>
-    .site-footer {
-        display: flex;
-        gap: 1rem;
-        margin: 2rem 0 0 0;
-    }
-</style>
-<footer class='site-footer'>
-    {platforms.map(platform => <Social platform={platform} />)}
+
+<footer class="site-footer">
+  {platforms.map(platform => <Social platform={platform} />)}
 </footer>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg) 0 var(--space-2xl);
+  }
+</style>

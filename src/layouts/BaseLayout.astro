@@ -3,75 +3,79 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
+interface Props {
+  pageTitle: string;
+}
+
 const { pageTitle } = Astro.props;
 ---
-<style>
-    .base-layout-container {
-		height: 100dvh;
-		display: grid;
-	    grid-template-columns: 1fr minmax(0, 100ch) 1fr;
-		grid-template-rows: auto 1fr auto;
-		grid-template-areas:
-		    'base-layout-header base-layout-header base-layout-header'
-            'base-layout-main base-layout-main base-layout-main'
-			 'base-layout-footer base-layout-footer base-layout-footer';
-
-		@media screen and (min-width: 636px) {
-			grid-template-areas:
-			    '. base-layout-header .'
-                '. base-layout-main .'
-				'. base-layout-footer .';
-		}
-	}
-
-	.base-layout-header {
-	    grid-area: base-layout-header;
-		border: 1px solid lime;
-		position: sticky;
-		top: 0;
-		z-index: 10;
-	}
-
-	.base-layout-main {
-	    border: 1px solid cornflowerblue;
-	    grid-area: base-layout-main;
-		padding: 1rem;
-	}
-
-	.base-layout-footer {
-	    border: 1px solid deeppink;
-		grid-area: base-layout-footer;
-	}
-</style>
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>RH - {pageTitle}</title>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>RH - {pageTitle}</title>
+  </head>
 
+  <body>
+    <div class="base-layout-container">
+      <div class="base-layout-header">
+        <Header />
+      </div>
 
-	<body>
-	    <div class="base-layout-container">
-    	    <div class="base-layout-header">
-    	        <Header />
-    		</div>
+      <main class="base-layout-main">
+        <h1>{pageTitle}</h1>
+        <slot />
+      </main>
 
-    		<main class="base-layout-main">
-    		    <h1>{pageTitle}</h1>
-    			<slot />
-    		</main>
-
-    		<div class='base-layout-footer'>
-    		    <Footer />
-    		</div>
-    		<script>
-    		  import "../scripts/menu";
-    		</script>
-		</div>
-	</body>
+      <div class="base-layout-footer">
+        <Footer />
+      </div>
+    </div>
+    <script>
+      import "../scripts/menu";
+    </script>
+  </body>
 </html>
+
+<style>
+  .base-layout-container {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, var(--content-max-width)) 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      'base-layout-header base-layout-header base-layout-header'
+      'base-layout-main base-layout-main base-layout-main'
+      'base-layout-footer base-layout-footer base-layout-footer';
+  }
+
+  @media screen and (min-width: 640px) {
+    .base-layout-container {
+      grid-template-areas:
+        '. base-layout-header .'
+        '. base-layout-main .'
+        '. base-layout-footer .';
+    }
+  }
+
+  .base-layout-header {
+    grid-area: base-layout-header;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .base-layout-main {
+    grid-area: base-layout-main;
+    padding: var(--space-md);
+  }
+
+  .base-layout-footer {
+    grid-area: base-layout-footer;
+    padding: 0 var(--space-md);
+  }
+</style>
