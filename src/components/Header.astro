@@ -5,32 +5,109 @@ import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <header>
-  <nav>
-    <div class="nav-controls">
-      <ThemeToggle />
-      <MenuButton />
+  <div class="header-inner">
+    <MenuButton />
+    <div id="main-menu" class="menu-panel">
+      <button class="menu-close-button" aria-label="Close menu">&times;</button>
+      <nav class="primary-nav" aria-label="Primary">
+        <Navigation />
+      </nav>
+      <div class="menu-utilities">
+        <ThemeToggle />
+      </div>
     </div>
-    <Navigation />
-  </nav>
+  </div>
 </header>
 
 <style>
   header {
-    background-color: var(--color-bg-surface);
+    background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
   }
 
-  .nav-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  nav {
+  .header-inner {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--space-sm) var(--space-md);
+  }
+
+  .menu-panel {
+    width: 100%;
+  }
+
+  .primary-nav {
+    width: 100%;
+  }
+
+  .menu-utilities {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-sm) 0;
+  }
+
+  .menu-close-button {
+    display: none;
+  }
+
+  @media screen and (max-width: 639px) {
+    .menu-panel {
+      display: none;
+    }
+
+    .menu-panel.is-open {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xl);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      background-color: var(--color-bg-surface);
+    }
+
+    .menu-panel.is-open .menu-close-button {
+      display: block;
+      background: none;
+      border: none;
+      color: var(--color-link);
+      font-size: var(--font-size-3xl);
+      cursor: pointer;
+      padding: var(--space-xs) var(--space-sm);
+      line-height: 1;
+      transition: color var(--transition-fast);
+    }
+
+    .menu-panel.is-open .menu-close-button:hover {
+      color: var(--color-link-hover);
+    }
+  }
+
+  @media screen and (min-width: 640px) {
+    .menu-panel {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-sm);
+      position: static;
+      width: auto;
+    }
+
+    .primary-nav {
+      width: auto;
+    }
+
+    .menu-utilities {
+      padding: 0 0 0 var(--space-sm);
+    }
+
+    .menu-close-button {
+      display: none !important;
+    }
   }
 </style>

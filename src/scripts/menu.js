@@ -1,13 +1,15 @@
 const menuButton = document.querySelector('.menu-button');
 const menuCloseButton = document.querySelector('.menu-close-button');
-const navLinks = document.querySelector('.nav-links');
+const menuPanel = document.querySelector('.menu-panel');
 
 function closeMenu() {
   menuButton?.setAttribute('aria-expanded', 'false');
+  menuPanel?.classList.remove('is-open');
 }
 
 function openMenu() {
   menuButton?.setAttribute('aria-expanded', 'true');
+  menuPanel?.classList.add('is-open');
 }
 
 // Toggle menu on hamburger button click
@@ -24,8 +26,15 @@ menuButton?.addEventListener('click', () => {
 menuCloseButton?.addEventListener('click', closeMenu);
 
 // Close menu when clicking a nav link (navigate and close)
-navLinks?.querySelectorAll('a').forEach((link) => {
+menuPanel?.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', closeMenu);
+});
+
+// Close menu when clicking the overlay background
+menuPanel?.addEventListener('click', (event) => {
+  if (event.target === menuPanel) {
+    closeMenu();
+  }
 });
 
 // Close menu on Escape key

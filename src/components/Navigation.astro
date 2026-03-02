@@ -1,8 +1,7 @@
 ---
 ---
 
-<div id="main-menu" class="nav-links">
-  <button class="menu-close-button" aria-label="Close menu">&times;</button>
+<div class="nav-links">
   <a href="/">Home</a>
   <a href="/about/">About</a>
   <a href="/blog/">Blog</a>
@@ -12,9 +11,7 @@
 <style>
   .nav-links {
     width: 100%;
-    display: none;
     margin: 0;
-    background-color: var(--color-bg-surface);
   }
 
   .nav-links a {
@@ -34,69 +31,30 @@
     color: var(--color-link-hover);
   }
 
-  .menu-close-button {
-    display: none;
-  }
-
-  /* Mobile: Fullscreen overlay when menu is open */
+  /* Mobile: menu overlay styles are handled in Header */
   @media screen and (max-width: 639px) {
-    :global(:has(.menu-button[aria-expanded="true"])) .nav-links {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-sm);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
-      background-color: var(--color-bg-surface);
-    }
-
     :global(:has(.menu-button[aria-expanded="true"])) .nav-links a {
       font-size: var(--font-size-2xl);
       padding: var(--space-md) var(--space-xl);
       width: 100%;
-    }
-
-    :global(:has(.menu-button[aria-expanded="true"])) .menu-close-button {
-      display: block;
-      position: absolute;
-      top: var(--space-md);
-      right: var(--space-md);
-      background: none;
-      border: none;
-      color: var(--color-text);
-      font-size: var(--font-size-3xl);
-      cursor: pointer;
-      padding: var(--space-xs) var(--space-sm);
-      line-height: 1;
-      transition: color var(--transition-fast);
-    }
-
-    :global(:has(.menu-button[aria-expanded="true"])) .menu-close-button:hover {
-      color: var(--color-accent);
     }
   }
 
   /* Desktop */
   @media screen and (min-width: 640px) {
     .nav-links {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       position: static;
       width: auto;
       background: none;
     }
 
     .nav-links a {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: var(--space-md) var(--space-lg);
-    }
-
-    .menu-close-button {
-      display: none !important;
     }
   }
 </style>
