@@ -16,3 +16,8 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+body.menu-open {
+  overflow: hidden;
+  touch-action: none;
+}

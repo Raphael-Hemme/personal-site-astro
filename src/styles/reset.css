@@ -15,11 +15,13 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   min-height: 100dvh;
   width: 100%;
+  overscroll-behavior: none;
 }
 
 img,

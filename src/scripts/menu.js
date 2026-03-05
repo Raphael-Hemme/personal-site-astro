@@ -3,13 +3,18 @@ const menuCloseButton = document.querySelector('.menu-close-button');
 const menuPanel = document.querySelector('.menu-panel');
 
 function closeMenu() {
+  menuButton?.focus();
   menuButton?.setAttribute('aria-expanded', 'false');
   menuPanel?.classList.remove('is-open');
+  menuPanel?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('menu-open');
 }
 
 function openMenu() {
   menuButton?.setAttribute('aria-expanded', 'true');
   menuPanel?.classList.add('is-open');
+  menuPanel?.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('menu-open');
 }
 
 // Toggle menu on hamburger button click

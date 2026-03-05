@@ -7,7 +7,7 @@ import ThemeToggle from './ThemeToggle.astro';
 <header>
   <div class="header-inner">
     <MenuButton />
-    <div id="main-menu" class="menu-panel">
+    <div id="main-menu" class="menu-panel" aria-hidden="true">
       <button class="menu-close-button" aria-label="Close menu">&times;</button>
       <nav class="primary-nav" aria-label="Primary">
         <Navigation />
@@ -53,10 +53,6 @@ import ThemeToggle from './ThemeToggle.astro';
 
   @media screen and (max-width: 639px) {
     .menu-panel {
-      display: none;
-    }
-
-    .menu-panel.is-open {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -69,9 +65,26 @@ import ThemeToggle from './ThemeToggle.astro';
       bottom: 0;
       z-index: 100;
       background-color: var(--color-bg-surface);
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity var(--transition-base-duration) var(--transition-ease),
+        transform var(--transition-base-duration) var(--transition-ease),
+        visibility 0s linear;
+      transition-delay: 0s, 0s, var(--transition-base-duration);
     }
 
-    .menu-panel.is-open .menu-close-button {
+    .menu-panel.is-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      visibility: visible;
+      pointer-events: auto;
+      transition-delay: 0s, 0s, 0s;
+    }
+
+    .menu-close-button {
       display: block;
       background: none;
       border: none;
@@ -83,7 +96,7 @@ import ThemeToggle from './ThemeToggle.astro';
       transition: color var(--transition-fast);
     }
 
-    .menu-panel.is-open .menu-close-button:hover {
+    .menu-close-button:hover {
       color: var(--color-link-hover);
     }
   }

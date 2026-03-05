@@ -23,12 +23,14 @@
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     color: var(--color-link);
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    transform-origin: center;
   }
 
   .nav-links a:hover,
   .nav-links a:focus-visible {
     color: var(--color-link-hover);
+    transform: scale(1.06);
   }
 
   /* Mobile: menu overlay styles are handled in Header */

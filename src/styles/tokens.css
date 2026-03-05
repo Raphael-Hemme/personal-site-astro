@@ -68,6 +68,12 @@
   --transition-base:   200ms ease-in-out;
   --transition-slow:   300ms ease-in-out;
 
+  --transition-ease:   ease-in-out;
+
+  --transition-fast-duration: 150ms;
+  --transition-base-duration: 200ms;
+  --transition-slow-duration: 300ms;
+
   /* --- Layout --- */
   --content-max-width: 100ch;
 }
