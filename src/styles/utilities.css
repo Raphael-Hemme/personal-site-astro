@@ -17,6 +17,30 @@
   border-width: 0;
 }
 
+/* Skip-to-content link — visible only on focus */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: var(--pad);
+  z-index: 9999;
+  padding: 0.4rem 0.8rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus {
+  top: var(--pad);
+  outline: none;
+  color: var(--color-bg);
+}
+
+/* Prevent background scrolling when mobile menu is open */
 body.menu-open {
   overflow: hidden;
   touch-action: none;

@@ -13,15 +13,18 @@ const { platform } = Astro.props;
 
 <style>
   .social-link {
-    color: var(--color-link);
+    color: var(--color-text-muted);
     text-decoration: none;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    transition: color var(--transition-fast);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: var(--font-weight-light);
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    transition: color 0.18s var(--ease);
   }
 
   .social-link:hover,
   .social-link:focus-visible {
-    color: var(--color-link-hover);
+    color: var(--color-text);
   }
 </style>

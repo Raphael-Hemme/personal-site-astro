@@ -1,5 +1,7 @@
 ---
 import Header from '../components/Header.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import MobileOverlay from '../components/MobileOverlay.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -17,16 +19,30 @@ const { pageTitle } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
     <title>RH - {pageTitle}</title>
   </head>
 
   <body>
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- Mobile overlay (fixed, outside document flow) -->
+    <MobileOverlay />
+
+    <!-- Layout grid -->
     <div class="base-layout-container">
       <div class="base-layout-header">
         <Header />
       </div>
 
-      <main class="base-layout-main">
+      <div class="base-layout-theme-toggle">
+        <ThemeToggle />
+      </div>
+
+      <main id="main-content" class="base-layout-main" tabindex="-1">
         <h1>{pageTitle}</h1>
         <slot />
       </main>
@@ -35,6 +51,7 @@ const { pageTitle } = Astro.props;
         <Footer />
       </div>
     </div>
+
     <script>
       import "../scripts/menu";
     </script>
@@ -42,40 +59,87 @@ const { pageTitle } = Astro.props;
 </html>
 
 <style>
+  /* ── Layout grid ──────────────────────────────────────────────────────── */
   .base-layout-container {
     min-height: 100dvh;
     display: grid;
-    grid-template-columns: 1fr minmax(0, var(--content-max-width)) 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-      'base-layout-header base-layout-header base-layout-header'
-      'base-layout-main base-layout-main base-layout-main'
-      'base-layout-footer base-layout-footer base-layout-footer';
+      'base-layout-header'
+      'base-layout-main'
+      'base-layout-footer';
   }
 
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 900px) {
     .base-layout-container {
+      grid-template-columns:
+        minmax(var(--nav-gutter), 1fr)
+        minmax(0, var(--content-max-width))
+        minmax(var(--nav-gutter), 1fr);
+      grid-template-rows: auto 1fr auto;
       grid-template-areas:
-        '. base-layout-header .'
-        '. base-layout-main .'
-        '. base-layout-footer .';
+        'base-layout-header          .           base-layout-theme-toggle'
+        '         .          base-layout-main               .            '
+        '         .          base-layout-footer             .            ';
     }
   }
 
+  /* ── Header ─────────────────────────────────────────────────────────── */
   .base-layout-header {
     grid-area: base-layout-header;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 100;
   }
 
+  @media screen and (min-width: 900px) {
+    .base-layout-header {
+      align-self: start;
+    }
+  }
+
+  /* ── Theme toggle ─────────────────────────────────────────────────────── */
+  .base-layout-theme-toggle {
+    /* Mobile: overlaps the header grid cell, pinned to its top-right corner.
+       Paints above the header wrapper thanks to later DOM order + same z-index. */
+    grid-area: base-layout-header;
+    justify-self: end;
+    align-self: start;
+    position: sticky;
+    top: 0;
+    padding: var(--pad);
+    z-index: 100;
+  }
+
+  @media screen and (min-width: 900px) {
+    .base-layout-theme-toggle {
+      grid-area: base-layout-theme-toggle;
+    }
+  }
+
+  /* ── Main content ─────────────────────────────────────────────────────── */
   .base-layout-main {
     grid-area: base-layout-main;
-    padding: var(--space-md);
+    padding: var(--space-xl) var(--pad) var(--space-2xl);
+    outline: none;
   }
 
+  @media screen and (min-width: 900px) {
+    .base-layout-main {
+      padding: var(--space-xl) var(--space-md) var(--space-2xl);
+    }
+  }
+
+  /* ── Footer ───────────────────────────────────────────────────────────── */
   .base-layout-footer {
     grid-area: base-layout-footer;
-    padding: 0 var(--space-md);
+    padding: 0 var(--pad);
+  }
+
+  @media screen and (min-width: 900px) {
+    .base-layout-footer {
+      padding: 0 var(--space-md);
+    }
   }
 </style>

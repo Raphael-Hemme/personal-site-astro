@@ -1,44 +1,67 @@
----
----
-<button id="themeToggle" aria-label="Toggle theme">
-  <svg class="icon-light-on" aria-hidden="true" width="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-    <path d="M427.73-117.92q-21.96-21-23.88-51.31h152.3q-1.92 30.31-23.88 51.31-21.96 21-52.27 21-30.31 0-52.27-21ZM480-800q-44.38 0-83.23 16.27t-67.85 44.04l-43.38-42.15q40.23-37.24 89.08-57.7Q423.46-860 480-860q116.92 0 198.46 81.54T760-580q0 65.61-23.27 112.85-23.27 47.23-55.65 80.38l-42.16-42.15q22.16-23 41.62-60.35Q700-526.62 700-580q0-92-64-156t-156-64Zm347.23 672.61-42.77 42.77L529.08-340H336.15q-62.84-39.08-99.49-102.12Q200-505.15 200-580q0-20.38 3.08-41.12 3.08-20.73 8.46-36.42L81.39-788.92l42.15-42.16 703.69 703.69ZM354-400h115.08l-206-206q-1.16 5.46-2.12 12.42-.96 6.96-.96 13.58 0 54 24.5 101t69.5 79Zm6.69-108.39Zm118.23-80.92Zm154.77 304.69v60H330v-60h303.69Z"/>
-  </svg>
-  <svg class="icon-light-off" aria-hidden="true" width="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-    <path d="M427.73-117.92q-21.96-21-23.88-51.31h152.3q-1.92 30.31-23.88 51.31-21.96 21-52.27 21-30.31 0-52.27-21ZM330-224.62v-60h300v60H330ZM336.15-340q-62.84-39.08-99.49-102.12Q200-505.15 200-580q0-116.92 81.54-198.46T480-860q116.92 0 198.46 81.54T760-580q0 74.85-36.66 137.88-36.65 63.04-99.49 102.12h-287.7ZM354-400h252q45-32 69.5-79T700-580q0-92-64-156t-156-64q-92 0-156 64t-64 156q0 54 24.5 101t69.5 79Zm126 0Z"/>
-  </svg>
-</button>
+<label class="theme-toggle">
+  <input
+    type="checkbox"
+    class="toggle-input"
+    aria-label="Toggle dark mode"
+  />
+  <span class="toggle-track">
+    <span class="toggle-thumb"></span>
+  </span>
+  <span class="toggle-text">dark mode</span>
+</label>
 
 <style>
-  :global(#themeToggle) {
-    border: 0;
-    background: none;
-    padding: 0;
-    cursor: pointer;
+  .theme-toggle {
     display: flex;
     align-items: center;
-    transition: transform var(--transition-base);
-  }
-  :global(#themeToggle:hover) {
-    transform: scale(1.06);
+    gap: 0.4rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    transition: color 0.18s var(--ease);
   }
 
-  :global(#themeToggle svg) {
+  .theme-toggle:hover {
+    color: var(--color-text);
+  }
+
+  .toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
     pointer-events: none;
-    fill: var(--color-link);
-    transition: fill var(--transition-base);
-  }
-  :global(#themeToggle:hover svg) {
-    fill: var(--color-link-hover);
   }
 
-  /* Light mode: show light-on (bulb), hide light-off (bulb crossed) */
-  :global(#themeToggle .icon-light-on)  { display: block; }
-  :global(#themeToggle .icon-light-off) { display: none; }
+  .toggle-track {
+    width: 24px;
+    height: 12px;
+    border: 1px solid currentColor;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.18s var(--ease);
+  }
 
-  /* Dark mode: show light-off (bulb crossed), hide light-on (bulb) */
-  :global(.dark #themeToggle .icon-light-on)  { display: none; }
-  :global(.dark #themeToggle .icon-light-off) { display: block; }
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    transition: transform 0.22s var(--ease);
+  }
+
+  :global(html.dark) .toggle-thumb {
+    transform: translateX(12px);
+  }
+
+  .toggle-text {
+    white-space: nowrap;
+  }
 </style>
 
 <script is:inline>
@@ -48,19 +71,22 @@
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   })();
 
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
+  const html = document.documentElement;
+  theme === 'dark' ? html.classList.add('dark') : html.classList.remove('dark');
+  document.querySelectorAll('.toggle-input').forEach((input) => {
+    input.checked = theme === 'dark';
+  });
 
-  const handleToggleClick = () => {
-    const element = document.documentElement;
-    element.classList.toggle('dark');
-
-    const isDark = element.classList.contains('dark');
+  const handleToggleChange = () => {
+    html.classList.toggle('dark');
+    const isDark = html.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }
+    document.querySelectorAll('.toggle-input').forEach((input) => {
+      input.checked = isDark;
+    });
+  };
 
-  document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
+  document.querySelectorAll('.toggle-input').forEach((input) => {
+    input.addEventListener('change', handleToggleChange);
+  });
 </script>

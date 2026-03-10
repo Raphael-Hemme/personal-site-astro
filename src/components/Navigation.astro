@@ -1,62 +1,128 @@
 ---
+interface Props {
+  currentPath: string;
+  variant?: 'corner' | 'overlay';
+}
+
+const { currentPath, variant = 'corner' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'home' },
+  { href: '/about/', label: 'about' },
+  { href: '/blog/', label: 'blog' },
+  { href: '/tags/', label: 'tags' },
+  { href: '#', label: 'search' },
+];
+
+function isActive(href: string, current: string): boolean {
+  if (href === '/') return current === '/';
+  return current.startsWith(href);
+}
 ---
 
-<div class="nav-links">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/blog/">Blog</a>
-  <a href="/tags/">Tags</a>
-</div>
+<ul class:list={['nav-links', `nav-links--${variant}`]}>
+  {links.map((link) => (
+    <li>
+      <a
+        href={link.href}
+        class:list={[{ active: isActive(link.href, currentPath) }]}
+      >
+        <span class="dash"></span>
+        {link.label}
+      </a>
+    </li>
+  ))}
+</ul>
 
 <style>
+  /* ── Shared base styles ── */
   .nav-links {
-    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
     margin: 0;
+    padding: 0;
   }
 
   .nav-links a {
-    display: block;
-    text-align: center;
-    padding: var(--space-sm) 0;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-light);
+    text-transform: lowercase;
+    color: var(--color-text-muted);
     text-decoration: none;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-    color: var(--color-link);
-    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-    transform-origin: center;
+    transition: color 0.18s var(--ease);
+  }
+
+  .nav-links .dash {
+    display: inline-block;
+    height: 1px;
+    background: currentColor;
+    flex-shrink: 0;
+    transition: width 0.18s var(--ease);
   }
 
   .nav-links a:hover,
-  .nav-links a:focus-visible {
-    color: var(--color-link-hover);
-    transform: scale(1.06);
+  .nav-links a.active {
+    color: var(--color-text);
   }
 
-  /* Mobile: menu overlay styles are handled in Header */
-  @media screen and (max-width: 639px) {
-    :global(:has(.menu-button[aria-expanded="true"])) .nav-links a {
-      font-size: var(--font-size-2xl);
-      padding: var(--space-md) var(--space-xl);
-      width: 100%;
-    }
+  /* ── Corner variant (desktop vertical nav) ── */
+  .nav-links--corner {
+    gap: 0.25rem;
   }
 
-  /* Desktop */
-  @media screen and (min-width: 640px) {
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      position: static;
-      width: auto;
-      background: none;
-    }
-
-    .nav-links a {
-      display: inline-flex;
-      align-items: center;
-      padding: var(--space-md) var(--space-lg);
-    }
+  .nav-links--corner a {
+    gap: 0.55rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    line-height: 1.7;
   }
+
+  .nav-links--corner .dash {
+    width: 12px;
+  }
+
+  .nav-links--corner a:hover .dash,
+  .nav-links--corner a.active .dash {
+    width: 20px;
+  }
+
+  /* ── Overlay variant (mobile fullscreen nav) ── */
+  .nav-links--overlay {
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .nav-links--overlay li {
+    overflow: hidden;
+  }
+
+  .nav-links--overlay a {
+    gap: 0.75rem;
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+    letter-spacing: 0.08em;
+    padding: 0.5rem 0;
+    transform: translateY(120%);
+    transition:
+      transform 0.4s var(--ease),
+      color 0.18s var(--ease);
+  }
+
+  .nav-links--overlay .dash {
+    width: 14px;
+  }
+
+  .nav-links--overlay a:hover .dash,
+  .nav-links--overlay a.active .dash {
+    width: 24px;
+  }
+
+  /* Staggered entrance — activated when overlay gains .open */
+  :global(.mobile-overlay.open) .nav-links--overlay li:nth-child(1) a { transform: translateY(0); transition-delay: 0.05s, 0s; }
+  :global(.mobile-overlay.open) .nav-links--overlay li:nth-child(2) a { transform: translateY(0); transition-delay: 0.1s, 0s; }
+  :global(.mobile-overlay.open) .nav-links--overlay li:nth-child(3) a { transform: translateY(0); transition-delay: 0.15s, 0s; }
+  :global(.mobile-overlay.open) .nav-links--overlay li:nth-child(4) a { transform: translateY(0); transition-delay: 0.2s, 0s; }
+  :global(.mobile-overlay.open) .nav-links--overlay li:nth-child(5) a { transform: translateY(0); transition-delay: 0.25s, 0s; }
 </style>

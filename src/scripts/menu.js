@@ -1,50 +1,44 @@
-const menuButton = document.querySelector('.menu-button');
-const menuCloseButton = document.querySelector('.menu-close-button');
-const menuPanel = document.querySelector('.menu-panel');
+const openMenuBtn = document.querySelector('.open-menu-btn');
+const overlay = document.getElementById('mobile-overlay');
+const closeMenuBtn = document.querySelector('.overlay-close');
 
-function closeMenu() {
-  menuButton?.focus();
-  menuButton?.setAttribute('aria-expanded', 'false');
-  menuPanel?.classList.remove('is-open');
-  menuPanel?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('menu-open');
-}
-
-function openMenu() {
-  menuButton?.setAttribute('aria-expanded', 'true');
-  menuPanel?.classList.add('is-open');
-  menuPanel?.setAttribute('aria-hidden', 'false');
+function openOverlay() {
+  overlay?.classList.add('open');
+  openMenuBtn?.setAttribute('aria-expanded', 'true');
   document.body.classList.add('menu-open');
+  // Focus first link for keyboard accessibility
+  const firstLink = overlay?.querySelector('a');
+  firstLink?.focus();
 }
 
-// Toggle menu on hamburger button click
-menuButton?.addEventListener('click', () => {
-  const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-  if (isExpanded) {
-    closeMenu();
-  } else {
-    openMenu();
+function closeOverlay() {
+  overlay?.classList.remove('open');
+  openMenuBtn?.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
+  openMenuBtn?.focus();
+}
+
+// Open on trigger click
+openMenuBtn?.addEventListener('click', openOverlay);
+
+// Close on close button click
+closeMenuBtn?.addEventListener('click', closeOverlay);
+
+// Close when clicking a nav link (navigate and close)
+overlay?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', closeOverlay);
+});
+
+// Close on backdrop tap (click outside the nav/close button)
+overlay?.addEventListener('click', (event) => {
+  if (event.target === overlay) {
+    closeOverlay();
   }
 });
 
-// Close menu on close button click
-menuCloseButton?.addEventListener('click', closeMenu);
-
-// Close menu when clicking a nav link (navigate and close)
-menuPanel?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', closeMenu);
-});
-
-// Close menu when clicking the overlay background
-menuPanel?.addEventListener('click', (event) => {
-  if (event.target === menuPanel) {
-    closeMenu();
-  }
-});
-
-// Close menu on Escape key
+// Close on Escape key
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeMenu();
+  if (e.key === 'Escape' && overlay?.classList.contains('open')) {
+    closeOverlay();
   }
 });
