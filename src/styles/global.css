@@ -4,6 +4,7 @@
    It pulls in all foundational CSS in the correct order.
    ========================================================================== */
 
+@import './fonts.css';
 @import './tokens.css';
 @import './reset.css';
 @import './base.css';
