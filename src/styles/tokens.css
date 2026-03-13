@@ -15,19 +15,19 @@
   --color-bg:           #f7f6f2;
   --color-bg-surface:   #f0ede4;
   --color-bg-overlay:   rgba(247, 246, 242, 0.97);
-  --color-text:         #141410;
-  --color-text-muted:   #8a8880;
-  --color-heading:      #141410;
-  --color-primary:      #141410;
-  --color-accent:       #141410;
-  --color-link:         #141410;
-  --color-link-hover:   #8a8880;
-  --color-border:       rgba(20, 20, 16, 0.1);
-  --color-tag-bg:       rgba(20, 20, 16, 0.06);
-  --color-tag-text:     #141410;
-  --color-button-bg:    #141410;
+  --color-text:         #2a2a24;
+  --color-text-muted:   #6b6960;
+  --color-heading:      #1a1a16;
+  --color-primary:      #235174;
+  --color-accent:       #4a7a2e;
+  --color-link:         #235174;
+  --color-link-hover:   #4a7a2e;
+  --color-border:       rgba(26, 26, 22, 0.12);
+  --color-tag-bg:       rgba(26, 26, 22, 0.06);
+  --color-tag-text:     #2a2a24;
+  --color-button-bg:    #1a1a16;
   --color-button-text:  #f7f6f2;
-  --color-nav-hover:    #141410;
+  --color-nav-hover:    #1a1a16;
 
   /* --- Typography --- */
   --font-sans:  'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -89,21 +89,21 @@
 
 /* --- Colors: Dark Mode --- */
 html.dark {
-  --color-bg:           #141410;
-  --color-bg-surface:   #1e1e18;
-  --color-bg-overlay:   rgba(20, 20, 16, 0.97);
-  --color-text:         #f0ede4;
-  --color-text-muted:   #6a6860;
+  --color-bg:           #272727;
+  --color-bg-surface:   #313131;
+  --color-bg-overlay:   rgba(39, 39, 39, 0.97);
+  --color-text:         #e8e4da;
+  --color-text-muted:   #a09a90;
   --color-heading:      #f0ede4;
-  --color-primary:      #f0ede4;
-  --color-accent:       #f0ede4;
-  --color-link:         #f0ede4;
-  --color-link-hover:   #6a6860;
-  --color-border:       rgba(240, 237, 228, 0.1);
-  --color-tag-bg:       rgba(240, 237, 228, 0.08);
-  --color-tag-text:     #f0ede4;
+  --color-primary:      #6aabcf;
+  --color-accent:       #c2e868;
+  --color-link:         #6aabcf;
+  --color-link-hover:   #c2e868;
+  --color-border:       rgba(232, 228, 218, 0.12);
+  --color-tag-bg:       rgba(232, 228, 218, 0.08);
+  --color-tag-text:     #e8e4da;
   --color-button-bg:    #f0ede4;
-  --color-button-text:  #141410;
+  --color-button-text:  #272727;
   --color-nav-hover:    #f0ede4;
 }
 
