@@ -32,7 +32,9 @@ const { frontmatter } = Astro.props;
         <TagList tags={frontmatter.tags} />
     </section>
     <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-    <slot />
+    <div class="prose">
+      <slot />
+    </div>
 </BaseLayout>
 
 <style>

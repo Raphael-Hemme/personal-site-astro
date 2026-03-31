@@ -44,15 +44,20 @@ h3 {
 }
 
 a {
-  color: var(--color-link);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
+  color: inherit;
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--color-link-hover);
+  color: inherit;
+}
+
+/* Accessible focus ring — functional use of --color-primary */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 ul, ol {
@@ -79,4 +84,36 @@ hr {
 p {
   color: var(--color-text);
   line-height: var(--line-height-loose);
+}
+
+/* ==========================================================================
+   Prose — opt-in styles for content areas with inline links and code.
+   Wrap content sections in <div class="prose"> to activate.
+   ========================================================================== */
+
+.prose a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  transition: color var(--transition-fast);
+}
+
+.prose a:hover {
+  color: var(--color-link-hover);
+}
+
+.prose code {
+  color: var(--color-text);
+  background-color: var(--color-tag-bg);
+  padding: 0.15em 0.35em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
 }

@@ -16,21 +16,22 @@ const { tag } = Astro.props;
     padding: 4px var(--space-sm) 6px;
     font-size: var(--font-size-sm);
     background-color: var(--color-tag-bg);
-    border-left: 2px solid var(--color-border);
   }
 
   .tag a {
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-secondary);
     font-family: var(--font-mono);
     font-weight: var(--font-weight-light);
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     line-height: 1;
+    transition: opacity var(--transition-fast);
   }
 
   .tag a:hover,
   .tag a:focus-visible {
-    color: var(--color-text-muted);
+    color: var(--color-secondary);
+    opacity: 0.7;
   }
 </style>
