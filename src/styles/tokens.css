@@ -12,21 +12,21 @@
 
 :root {
   /* --- Colors: Light Mode (default) --- */
-  --color-bg:           #f7f6f2;
-  --color-bg-surface:   #f0ede4;
-  --color-bg-overlay:   rgba(247, 246, 242, 0.97);
+  --color-bg-surface:   #f5f2e8;
+  --color-bg-card:      #ede9dc;
   --color-text:         #2a2a24;
   --color-text-muted:   #6b6960;
   --color-heading:      #1a1a16;
   --color-primary:      #235174;
-  --color-accent:       #4a7a2e;
+  --color-accent:       #c4571f;
+  --color-accent-2:     #4e8a68;
   --color-link:         #235174;
-  --color-link-hover:   #4a7a2e;
-  --color-border:       rgba(26, 26, 22, 0.12);
+  --color-link-hover:   #c4571f;   /* orange on hover — threshold/departure feel */
+  --color-border:       rgba(26, 26, 22, 0.11);
   --color-tag-bg:       rgba(26, 26, 22, 0.06);
   --color-tag-text:     #2a2a24;
   --color-button-bg:    #1a1a16;
-  --color-button-text:  #f7f6f2;
+  --color-button-text:  #f5f2e8;
   --color-nav-hover:    #1a1a16;
 
   /* --- Typography --- */
@@ -89,22 +89,22 @@
 
 /* --- Colors: Dark Mode --- */
 html.dark {
-  --color-bg:           #272727;
-  --color-bg-surface:   #313131;
-  --color-bg-overlay:   rgba(39, 39, 39, 0.97);
-  --color-text:         #e8e4da;
-  --color-text-muted:   #a09a90;
-  --color-heading:      #f0ede4;
+  --color-bg-surface:   #232320;
+  --color-bg-card:      #2e2e2a;
+  --color-text:         #e8e4d8;
+  --color-text-muted:   #9e9a90;
+  --color-heading:      #f0ece0;
   --color-primary:      #6aabcf;
-  --color-accent:       #c2e868;
+  --color-accent:       #d97240;
+  --color-accent-2:     #6aaa88;
   --color-link:         #6aabcf;
-  --color-link-hover:   #c2e868;
-  --color-border:       rgba(232, 228, 218, 0.12);
-  --color-tag-bg:       rgba(232, 228, 218, 0.08);
-  --color-tag-text:     #e8e4da;
-  --color-button-bg:    #f0ede4;
-  --color-button-text:  #272727;
-  --color-nav-hover:    #f0ede4;
+  --color-link-hover:   #d97240;   /* orange threshold on hover */
+  --color-border:       rgba(232, 228, 216, 0.11);
+  --color-tag-bg:       rgba(232, 228, 216, 0.08);
+  --color-tag-text:     #e8e4d8;
+  --color-button-bg:    #f0ece0;
+  --color-button-text:  #232320;
+  --color-nav-hover:    #f0ece0;
 }
 
 /* Responsive pad for desktop */

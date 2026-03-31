@@ -1,44 +1,40 @@
-const openMenuBtn = document.querySelector('.open-menu-btn');
+const menuBtn = document.querySelector('.open-menu-btn');
 const overlay = document.getElementById('mobile-overlay');
-const closeMenuBtn = document.querySelector('.overlay-close');
 
-function openOverlay() {
+function openMenu() {
   overlay?.classList.add('open');
-  openMenuBtn?.setAttribute('aria-expanded', 'true');
+  menuBtn?.setAttribute('aria-expanded', 'true');
+  menuBtn?.setAttribute('aria-label', 'Close navigation menu');
+  if (menuBtn) menuBtn.textContent = menuBtn.dataset.labelOpen ?? 'close';
   document.body.classList.add('menu-open');
   // Focus first link for keyboard accessibility
   const firstLink = overlay?.querySelector('a');
   firstLink?.focus();
 }
 
-function closeOverlay() {
+function closeMenu() {
   overlay?.classList.remove('open');
-  openMenuBtn?.setAttribute('aria-expanded', 'false');
+  menuBtn?.setAttribute('aria-expanded', 'false');
+  menuBtn?.setAttribute('aria-label', 'Open navigation menu');
+  if (menuBtn) menuBtn.textContent = menuBtn.dataset.labelClose ?? 'menu';
   document.body.classList.remove('menu-open');
-  openMenuBtn?.focus();
+  menuBtn?.focus();
 }
 
-// Open on trigger click
-openMenuBtn?.addEventListener('click', openOverlay);
-
-// Close on close button click
-closeMenuBtn?.addEventListener('click', closeOverlay);
+// Toggle on button click
+menuBtn?.addEventListener('click', () => {
+  const isOpen = overlay?.classList.contains('open');
+  isOpen ? closeMenu() : openMenu();
+});
 
 // Close when clicking a nav link (navigate and close)
 overlay?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', closeOverlay);
-});
-
-// Close on backdrop tap (click outside the nav/close button)
-overlay?.addEventListener('click', (event) => {
-  if (event.target === overlay) {
-    closeOverlay();
-  }
+  link.addEventListener('click', closeMenu);
 });
 
 // Close on Escape key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && overlay?.classList.contains('open')) {
-    closeOverlay();
+    closeMenu();
   }
 });

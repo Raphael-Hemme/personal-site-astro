@@ -11,8 +11,6 @@ const currentPath = Astro.url.pathname;
   aria-modal="true"
   aria-label="Navigation menu"
 >
-  <button class="overlay-close" aria-label="Close navigation menu">close</button>
-
   <nav aria-label="Main navigation">
     <Navigation currentPath={currentPath} variant="overlay" />
   </nav>
@@ -22,45 +20,24 @@ const currentPath = Astro.url.pathname;
   .mobile-overlay {
     position: fixed;
     inset: 0;
-    background: var(--color-bg-overlay);
-    z-index: 200;
+    background: var(--color-bg-surface);
+    z-index: 90;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    opacity: 0;
+    transform: translateY(-100%);
     visibility: hidden;
     transition:
-      opacity 0.35s var(--ease),
+      transform 0.35s var(--ease),
       visibility 0.35s var(--ease);
     pointer-events: none;
   }
 
   .mobile-overlay.open {
-    opacity: 1;
+    transform: translateY(0);
     visibility: visible;
     pointer-events: all;
-  }
-
-  /* Close button — top left (matches menu button position) */
-  .overlay-close {
-    position: absolute;
-    top: var(--pad);
-    left: var(--pad);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.18em;
-    text-transform: lowercase;
-    color: var(--color-text-muted);
-    padding: 0;
-    transition: color 0.18s var(--ease);
-  }
-
-  .overlay-close:hover {
-    color: var(--color-text);
   }
 
   /* Always hide on desktop */
