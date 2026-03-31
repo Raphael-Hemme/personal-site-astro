@@ -77,6 +77,6 @@ hr {
 }
 
 p {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: var(--line-height-loose);
 }
