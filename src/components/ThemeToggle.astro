@@ -64,29 +64,27 @@
   }
 </style>
 
-<script is:inline>
-  const theme = (() => {
-    const stored = localStorage.getItem('theme');
-    if (stored === 'dark' || stored === 'light') return stored;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  })();
-
-  const html = document.documentElement;
-  theme === 'dark' ? html.classList.add('dark') : html.classList.remove('dark');
-  document.querySelectorAll('.toggle-input').forEach((input) => {
-    input.checked = theme === 'dark';
-  });
-
-  const handleToggleChange = () => {
+<script>
+  // Toggle dark mode and persist the choice.
+  function handleToggleChange() {
+    const html = document.documentElement;
     html.classList.toggle('dark');
     const isDark = html.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     document.querySelectorAll('.toggle-input').forEach((input) => {
-      input.checked = isDark;
+      (input as HTMLInputElement).checked = isDark;
     });
-  };
+  }
 
-  document.querySelectorAll('.toggle-input').forEach((input) => {
-    input.addEventListener('change', handleToggleChange);
-  });
+  // Called on every page load because the toggle element gets swapped
+  // (not persisted) on each client-side navigation.
+  function initToggle() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('.toggle-input').forEach((input) => {
+      (input as HTMLInputElement).checked = isDark;
+      (input as HTMLInputElement).addEventListener('change', handleToggleChange);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initToggle);
 </script>
